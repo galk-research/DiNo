@@ -42,5 +42,5 @@ clean:
 	rm -f  *.o
 
 cleanall: clean
-	rm -f  pddl+.cpp lex.yy.c pddl2upm
+	rm -f  pddl+.cpp lex.yy.cc pddl2upm
 
