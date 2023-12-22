@@ -7,6 +7,7 @@ BYACC = bison
 
 # choice of the options
 CFLAGS = -g -O2 -ggdb -DYYMAXDEPTH=25000    # options for g++
+CFLAGS += -m32 -std=c++11 
 
 #must end with a slash
 PDDL_PARSER_DIR = bin/ 
