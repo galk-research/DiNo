@@ -1,0 +1,12 @@
+bin/dino
+bin/pddl2upm
+
+ex/*/*.h
+ex/*/*.m
+ex/*/parsing_file.pddl
+
+lex.yy.c
+lex.yy.cc
+y.tab.?
+
+
