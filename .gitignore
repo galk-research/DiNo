@@ -1,6 +1,11 @@
 bin/dino
 bin/pddl2upm
 
+modified:   src/VAL-master/parser
+modified:   src/VAL-master/tan
+modified:   src/VAL-master/validate
+
+
 ex/*/*.h
 ex/*/*.m
 ex/*/parsing_file.pddl
