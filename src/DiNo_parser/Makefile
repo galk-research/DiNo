@@ -7,7 +7,10 @@ BYACC = bison
 
 # choice of the options
 CFLAGS = -g -O2 -ggdb -DYYMAXDEPTH=25000    # options for g++
-CFLAGS += -m32 -std=c++11 
+CFLAGS += -m32 -ansi # -std=c++11
+
+CFLAGS += -Werror 
+
 
 #must end with a slash
 PDDL_PARSER_DIR = bin/ 
@@ -19,7 +22,9 @@ SRCS = 	pddl+.cpp \
 OBJS = 	pddl+.o \
 	parse.o \
 	ptree.o
-	
+
+all: pddl2upm
+
 pddl2upm: pddl+.o parse.o ptree.o
 	$(CPLUSPLUS) -g $(OBJS) -o pddl2upm  $(CFLAGS)
 	mv pddl2upm ../../$(PDDL_PARSER_DIR)

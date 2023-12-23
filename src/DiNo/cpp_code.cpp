@@ -2324,6 +2324,12 @@ const char *mathexpr::generate_code()
       break;
     }
   }
+
+  Error.Error
+    ("Internal: a math expression that wasn't proper called math::generate_code().");
+    return "ERROR!";
+    // return tsprintf("Unknown function=.");
+
 }
 
 //GDP: internal values
@@ -2334,6 +2340,12 @@ const char *specvalexpr::generate_code()
       return tsprintf("StateSet->CurrentLevel()");
       break;
   }
+  Error.Error
+    ("Internal: a basic expression that wasn't proper called specvalexpr::generate_code().");
+    return "ERROR!";
+  
+
+  // return tsprintf("Unknown specvalexpr::generate_code().");
 }
 
 /********************
@@ -4148,7 +4160,7 @@ if (ff_enabled == true){
 
   	  					precondmap.insert(std::make_pair(lc2->get_right()->generate_code_left(), std::make_pair(lc2->get_right()->generate_code_right(),0)));
   	  				}
-  					else if (rrr.find("<=") != std::string::npos) {
+  					  else if (rrr.find("<=") != std::string::npos) {
 
 //  	  					std::cout << "--- right inserting LTE COMPARISON boolean expression: " << rrr << std::endl;
 
@@ -4202,19 +4214,19 @@ if (ff_enabled == true){
 	  	  if ((it33->first.find("+") != std::string::npos) || (it33->first.find("-") != std::string::npos) ||
 	  			  (it33->first.find("*") != std::string::npos) || (it33->first.find("/") != std::string::npos)){
 
-	  		pre_idx++;
+	  		  pre_idx++;
 
-			  fprintf(codefile,	"	mu_dummy_expr_%d.value(%s);\n"
-					  	  	  	"	if (std::string(typeid(%s).name()).compare(\"d\") == 0){\n"
-					  	  	  	"			preconds.insert(std::make_pair(&(mu_dummy_expr_%d), std::make_pair(%s, %d))); \n"
-//					  	  	  	"			std::cout << \"\\n\\n\\n\\n =================================\\n THIS IS A DUMMY VAR IN NUM PRECONDITION \\n \" << mu_dummy_expr_%d.value() << \"\\n\\n\" << std::endl;\n"
-					  	  	  	"	} \n", pre_idx, it33->first.c_str(), it33->first.c_str(), pre_idx, it33->second.first.c_str(), it33->second.second, pre_idx  );
+			    fprintf(codefile,	"	mu_dummy_expr_%d.value(%s);\n"
+					  	  	  	  "	if (std::string(typeid(%s).name()).compare(\"d\") == 0){\n"
+					  	  	  	  "			preconds.insert(std::make_pair(&(mu_dummy_expr_%d), std::make_pair(%s, %d))); \n"
+				  	  	  	  "			std::cout << \"\\n\\n\\n\\n =================================\\n this is a dummy var in num precondition \\n \" << mu_dummy_expr_%d.value() << \"\\n\\n\" << std::endl;\n"
+					  	  	  	  "	} \n", pre_idx, it33->first.c_str(), it33->first.c_str(), pre_idx, it33->second.first.c_str(), it33->second.second, pre_idx  );
 
 	  	  }
 
 	  	  else {
 
-		  fprintf(codefile, " 	if (std::string(typeid(%s).name()).compare(\"14mu_1_real_type\") == 0){\n"
+		      fprintf(codefile, " 	if (std::string(typeid(%s).name()).compare(\"14mu_1_real_type\") == 0){\n"
 				  	  	  	"			preconds.insert(std::make_pair(&(%s), std::make_pair(%s, %d))); \n"
 				  	  	  	"	} \n", it33->first.c_str(), it33->first.c_str(), it33->second.first.c_str(), it33->second.second  );
 

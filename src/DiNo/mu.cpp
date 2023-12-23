@@ -569,17 +569,21 @@ int compile_m()
   } else {
     setup_mfile();
     printf("Compiling model...\n");
+
     int error = yyparse();
+    
     if (!error && Error.getnumerrors() == 0) {
       //UPMurphi begin: find discretization constant in source
       lexid *lext = ltable.enter(QUOTED_VALUE(DISCRETIZATION_CONST_NAME));
       ste *stet = symtab->find(lext);
+    
       if (stet!=NULL && stet->getvalue()->getclass() == decl::Const && stet->getvalue()->gettype()->gettypeclass() == typedecl::Real) {
         theprog->discretization = ((constdecl*)stet->getvalue())->getrvalue();
       } else {
         Error.FatalError("Unable to find discretization constant T in source file.");
         return 20;
       }
+      
       //UPMurphi end
       //UPMurphi begin: scan for clock variable (TIME)
       lext = ltable.enter(QUOTED_VALUE(CLOCK_VAR_NAME));
@@ -588,13 +592,15 @@ int compile_m()
         theprog->clock_var_name = tsprintf("mu_%s",QUOTED_VALUE(CLOCK_VAR_NAME));
       }
       //UPMurphi end
+      
       codefile = setup_cppfile();
       theprog->generate_code();
       fclose(codefile);
       printf("Model compilation successful, no errors\n");
       if (args->keep_source) printf("C++ source code generated in file %s\n", get_cppfilename());
-      return error+Error.getnumerrors();
     }
+
+    return error+Error.getnumerrors();
   }
 }
 

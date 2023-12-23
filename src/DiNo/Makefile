@@ -19,7 +19,9 @@ BYACC = byacc
 
 # compiler options
 CFLAGS = -g -O2 -DYYMAXDEPTH=25000       # options for g++
-CFLAGS += -m32  -std=c++11
+CFLAGS += -m32  -ansi # -std=c++11
+
+CFLAGS += -Werror
 
 #must end with a slash
 BIN_DIR = bin/ 
@@ -27,7 +29,7 @@ INCLUDE_DIR = include/
 
 #model compilation settings
 COMPILER_DEFINES = -DNO_RUN_TIME_CHECKING -DCATCH_DIV -DSYSCONF_RDCL -D_FILE_OFFSET_BITS=64 
-COMPILER_SWITCHES =   -m32 -w -O4
+COMPILER_SWITCHES =   -m32 -w -ansi # -O4 
 PDDL_PARSER_NAME = pddl2upm
 DINO_DEFINES = -DCOMPILER_NAME=$(CPLUSPLUS) -DCOMPILER_DEFINES="$(COMPILER_DEFINES)" -DCOMPILER_SWITCHES="$(COMPILER_SWITCHES)" -DPDDL_PARSER_NAME=$(PDDL_PARSER_NAME) 
 
@@ -57,6 +59,9 @@ OBJS = \
 
 dino: $(OBJS)
 	$(CPLUSPLUS) -g -o dino $(CFLAGS) $(OBJS)
+
+
+install: dino
 	mv dino ../../$(BIN_DIR)
 
 mu.o: mu.cpp mu.hpp y.tab.h

@@ -862,7 +862,7 @@ string analysis::toMurphi_declaration(int indent)
   int prec = atoi(precision.c_str());
   int exponent_c = atoi(mantissa.c_str()) - 1; 
   int mantissa_c = atoi(exponent.c_str()) + atoi(mantissa.c_str());
-  char buffer [10];
+  char buffer [50]; // TODO: GalK: this used to be a 10. Why are we using constants this way?!
   sprintf (buffer, "%d",mantissa_c);
   mantissa=buffer;
   sprintf (buffer, "%d",exponent_c);
