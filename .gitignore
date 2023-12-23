@@ -7,8 +7,9 @@ modified:   src/VAL-master/validate
 
 
 ex/*/*.h
-ex/*/*.m
-ex/*/parsing_file.pddl
+ex/*/*.cpp
+*.m
+parsing_file.pddl
 
 lex.yy.c
 lex.yy.cc
