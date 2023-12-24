@@ -1963,8 +1963,9 @@ const char *procdecl::generate_decl()
 
 
       /* the locals. */
-      decls->generate_decls();
-
+      if (decls) {
+        decls->generate_decls(); // TODO: GalK put in a test here, since decls use to be NULL on linear geneartor prob01. 
+      } else Error.Error("Internal: procdecl::generate_decl() decls is NULL");
       /* the statements. */
 
 
@@ -2056,7 +2057,11 @@ const char *funcdecl::generate_decl()
       fprintf(codefile, ")\n" "{\n");
 
       /* the locals. */
-      decls->generate_decls();
+          /* the locals. */
+      if (decls) {
+        decls->generate_decls(); // TODO: GalK put in a test here, since decls use to be NULL on linear geneartor prob01. 
+      } else Error.Error("Internal: funcdecl::generate_decl() decls is NULL");
+  // decls->generate_decls();
 
       /* the statements. */
       for (stmt * s = body; s != NULL; s = s->next) {
@@ -4653,7 +4658,9 @@ if (ff_enabled == true){
 
   generate_rule_params_assignment(enclosures);
   generate_rule_aliases(enclosures);
-  locals->generate_decls();
+  if (locals)
+    locals->generate_decls(); // TODO: GalK introduced check, because of segfaults in linear_generator prob01 
+  else Error.Error("1st locals is NULL in cpp_code.cpp:simplerule::generate_rule()"); 
 
   fprintf(codefile, "\n");
 
@@ -4697,7 +4704,10 @@ if (ff_enabled == true){
 
   generate_rule_params_assignment(enclosures);
   generate_rule_aliases(enclosures);
-  locals->generate_decls();
+  if (locals)
+      locals->generate_decls(); // TODO: GalK introduced check, because of segfaults in linear_generator prob01
+  else Error.Error("2nd locals is NULL in cpp_code.cpp:simplerule::generate_rule()");
+
 
   fprintf(codefile, "\n");
 
@@ -4736,7 +4746,9 @@ if (ff_enabled == true){
 
    generate_rule_params_assignment(enclosures);
    generate_rule_aliases(enclosures);
-   locals->generate_decls();
+    if (locals)
+      locals->generate_decls();  // TODO: GalK introduced check, because of segfaults in linear_generator prob01
+    else Error.Error("3rd locals is NULL in cpp_code.cpp:simplerule::generate_rule()");
 
    fprintf(codefile, "\n");
 
@@ -4869,7 +4881,9 @@ if (ff_enabled == true){
   fprintf(codefile, "  void Code(RULE_INDEX_TYPE r)\n" "  {\n");
   generate_rule_params_assignment(enclosures);
   generate_rule_aliases(enclosures);
-  locals->generate_decls();
+  if (locals)
+    locals->generate_decls(); // TODO: GalK introduced check, because of segfaults in linear_generator prob01
+  else Error.Error("4th locals is NULL in cpp_code.cpp:simplerule::generate_rule()");
 
   /*
     //if we have a clock procedure, call it before the rule code and as many times as rule duration, so...
@@ -4877,7 +4891,8 @@ if (ff_enabled == true){
   	fprintf(codefile, " for(int clock_ticks=1; clock_ticks<=Duration(r); ++clock_ticks) %s();\n",theprog->clock_procedure->getvalue()->mu_name);
     }
   */
-  for (stmt * b = body; b != NULL; b = b->next) b->generate_code();
+  for (stmt * b = body; b != NULL; b = b->next)
+    b->generate_code();
 
 
 
@@ -4902,7 +4917,9 @@ if (ff_enabled == true){
 
     generate_rule_params_assignment(enclosures);
     generate_rule_aliases(enclosures);
-    locals->generate_decls();
+    if (locals)
+      locals->generate_decls(); // TODO: GalK introduced check, because of segfaults in linear_generator prob01
+    else Error.Error("5th locals is NULL in cpp_code.cpp:simplerule::generate_rule()");
 
     fprintf(codefile, "\n");
 
@@ -4937,7 +4954,9 @@ if (ff_enabled == true){
 
     generate_rule_params_assignment(enclosures);
     generate_rule_aliases(enclosures);
-    locals->generate_decls();
+    if (locals)
+      locals->generate_decls(); // TODO: GalK introduced check, because of segfaults in linear_generator prob01
+    else Error.Error("6th locals is NULL in cpp_code.cpp:simplerule::generate_rule()");
 
     fprintf(codefile, "\n");
 
@@ -4988,7 +5007,9 @@ if (ff_enabled == true){
 
     generate_rule_params_assignment(enclosures);
     generate_rule_aliases(enclosures);
-    locals->generate_decls();
+    if (locals)
+      locals->generate_decls(); // TODO: GalK introduced check, because of segfaults in linear_generator prob01
+    else Error.Error("7th locals is NULL in cpp_code.cpp:simplerule::generate_rule()");
 
     fprintf(codefile, "\n");
 
@@ -5031,7 +5052,9 @@ if (ff_enabled == true){
 
     generate_rule_params_assignment(enclosures);
     generate_rule_aliases(enclosures);
-    locals->generate_decls();
+    if (locals)
+      locals->generate_decls(); // TODO: GalK introduced check, because of segfaults in linear_generator prob01
+    else Error.Error("8th locals is NULL in cpp_code.cpp:simplerule::generate_rule()");
 
     fprintf(codefile, "\n");
 
@@ -5064,7 +5087,9 @@ if (ff_enabled == true){
 
     generate_rule_params_assignment(enclosures);
     generate_rule_aliases(enclosures);
-    locals->generate_decls();
+    if (locals)
+        locals->generate_decls(); // TODO: GalK introduced check, because of segfaults in linear_generator prob0
+    else Error.Error("9th locals is NULL in cpp_code.cpp:simplerule::generate_rule()");
 
     fprintf(codefile, "\n");
 
@@ -5203,9 +5228,13 @@ const char *startstate::generate_code()
   fprintf(codefile, "  void Code(unsigned short r)\n" "  {\n");
   generate_rule_params_assignment(enclosures);
   generate_rule_aliases(enclosures);
-  locals->generate_decls();
+  if (locals)
+    locals->generate_decls(); // TODO: GalK introduced check, because of segfaults in linear_generator prob01
+  else Error.Error("1st locals is NULL in cpp_code.cpp:startstate::generate_codes()");
+
   for (stmt * b = body; b != NULL; b = b->next)
     b->generate_code();
+ 
   fprintf(codefile, "  };\n" "\n");
 
   // end declaration
