@@ -1988,7 +1988,7 @@ const char *procdecl::generate_decl()
 //    		  global_test_plus.push_back(((ifstmt*)sttt)->test);
     		  std::string pp = sttt->get_proc_code_plus();
 
-    		  sttt->get_proc_code_plus();
+    		  sttt->get_proc_code_plus(); // TODO: GalK why do we need this? seems to get a string just to throw it awayust to throw it away
 //    		  pplus.append(decls->generate_decls());
     		  pplus.append(pp);
     		  global_test_plus.insert(std::make_pair(pplus,(((ifstmt*)sttt)->test)));
@@ -1998,7 +1998,7 @@ const char *procdecl::generate_decl()
 //    		  global_test_minus.push_back(((ifstmt*)sttt)->test);
     		  std::string pm = sttt->get_proc_code_minus();
 
-    		  sttt->get_proc_code_minus();
+    		  sttt->get_proc_code_minus(); // TODO: GalK why do we need this? seems to get a string just to throw it awayust to throw it away
 //    		  pminus.append(decls->generate_decls());
     		  pminus.append(pm);
     		  global_test_minus.insert(std::make_pair(pminus,(((ifstmt*)sttt)->test)));
