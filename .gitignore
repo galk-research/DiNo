@@ -15,4 +15,10 @@ lex.yy.c
 lex.yy.cc
 y.tab.?
 
+src/.cache
+src/DiNo/d.pddl
+src/DiNo_parser/pddl+.cpp
+src/compile_commands.json
+
+
 
